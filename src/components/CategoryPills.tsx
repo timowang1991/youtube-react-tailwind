@@ -39,7 +39,7 @@ export function CategoryPills({
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [translate, categories]);
 
   return (
     <div ref={containerRef} className="overflow-x-hidden relative">
@@ -68,10 +68,6 @@ export function CategoryPills({
             onClick={() => {
               const newTranslate = Math.max(0, translate - TRANSLATE_AMOUNT);
               setTranslate(newTranslate);
-              setIsRightVisible(true);
-              if (newTranslate <= 0) {
-                setIsLeftVisible(false);
-              }
             }}
           >
             <ChevronLeft />
@@ -85,18 +81,8 @@ export function CategoryPills({
             size="icon"
             className="h-full aspect-square w-auto p-1.5"
             onClick={() => {
-              if (containerRef.current === null) {
-                return;
-              }
-              const edge = containerRef.current.scrollWidth;
-              const width = containerRef.current.clientWidth;
               const newTranslate = translate + TRANSLATE_AMOUNT;
               setTranslate(newTranslate);
-              setIsLeftVisible(true);
-
-              if (newTranslate + width >= edge) {
-                setIsRightVisible(false);
-              }
             }}
           >
             <ChevronRight />
